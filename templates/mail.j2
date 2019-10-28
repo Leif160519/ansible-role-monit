@@ -9,9 +9,11 @@ set mailserver {{ monit_mailserver_host }} port {{ monit_mailserver_port }}
   {% endif -%}
   with timeout {{ monit_mailserver_timeout | default(5) }} seconds
 
+{% if monit_alert_addresses is defined -%}
 {% for address in monit_alert_addresses %}
 set alert {{ address }}
 {% endfor -%}
+{% endif -%}
 
 {% if monit_alert_mail_format is defined -%}
 set mail-format {
