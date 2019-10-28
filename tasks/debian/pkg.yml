@@ -1,7 +1,5 @@
 ---
 - name: pkg - Install package
   apt:
-    name: monit
-    update_cache: yes
-    cache_valid_time: 3600
+    deb: "http://nexus.genscript.com/repository/it/ppa.genscript.com/monit/5.26.0-1~ppa-genscript-ubuntu1/monit_5.26.0-1~ppa-genscript-ubuntu1_amd64.deb"
     state: present
