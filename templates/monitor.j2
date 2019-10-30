@@ -40,7 +40,7 @@ check network {{ monit_monitor.name }} with interface {{ monit_monitor.target }}
   {%- if monit_monitor.group is defined %} and gid {{monit_monitor.group}}{% endif %}
 {% endif %}
 {% if monit_monitor.rules is defined %}
-{% for rule in monit_monitor.rules %}
+{% for rule in monit_monitor.rules.split('\n') %}
   {{ rule }}
 {% endfor %}
 {% endif %}
