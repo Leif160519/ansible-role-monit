@@ -1,20 +1,32 @@
 Monit
 ========
 
-Ansible role for configuring Monit. Sample usage see [example.yml](http://github.com/pgolm/ansible-playbook-monit/blob/master/example.yml).
-
-Install
--------
-Install this role with [ansible-galaxy](https://galaxy.ansible.com/pgolm/monit/).
-
-```shell
-$ ansible-galaxy install pgolm.monit
+```yml
+- hosts: blabla
+  vars:
+    monit_services:
+      - type: system
+        name: "{{ inventory_hostname }}"
+      - name: "foo"
+        type: program
+        target: "/bin/ls -1 /mnt/foo"
+        rules: |
+          with timeout 5 seconds
+          if status != 0 then alert
+          alert blabla@pomail.net
+      - name: "bar"
+        type: host
+        target: "api.blabla.com"
+        rules: |
+          if failed
+            port 443 protocol https
+            status 403
+            and certificate valid > 30 days
+          then alert
+          alert blabla@pomail.net
+  roles:
+    - { role: s5unty.monit }
 ```
-
-Requirements
-------------
-
-An Ansible ready host.
 
 Role Variables
 --------------
@@ -54,11 +66,6 @@ Role Variables
 * `monit_webinterface_rw_group`: Define group of users allowed to read and write on web interface. It is only applied when defined and is empty by default.
 * `monit_webinterface_r_group`: Define group of users allowed to read on web interface. It is only applied when defined and is empty by default.
 * `monit_webinterface_acl_rules`: List of ACL rules for the web interface, such as "localhost" or "hauk:password". It is only applied when defined and is empty by default. You should probably define at least one for the httpd service to start.
-
-Custom facts
-------------
-
-This role writes a `monit_services_configured` on `/etc/ansible/facts.d/monit.fact` in order to keep track of the configured monitors between different plays. This helps us removing unused monitors.
 
 LICENSE
 -------
