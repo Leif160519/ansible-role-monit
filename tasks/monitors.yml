@@ -23,6 +23,7 @@
 
 - name: monitors - Reload facts
   setup:
+    gather_subset: min
     filter: "ansible_local"
   when: monit_write_facts.changed
 
