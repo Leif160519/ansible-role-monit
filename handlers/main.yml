@@ -1,6 +1,12 @@
 ---
 - name: restart monit
-  command: /etc/init.d/monit restart
+  shell: >
+    if [ -e /etc/init.d/monit]; then
+      /etc/init.d/monit restart
+    elif [ -e /usr/lib/systemd/system/monit.service ]; then
+      systemctl enable monit.service
+      systemctl restart monit.service
+    fi
 ##
 # service module fails on updated trusty
 # https://github.com/ansible/ansible/issues/19030
