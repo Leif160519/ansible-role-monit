@@ -1,11 +1,13 @@
 ---
 - name: restart monit
-  shell: >
-    if [ -e /etc/init.d/monit]; then
+  shell: |
+    if [ -e /etc/init.d/monit ]; then
       /etc/init.d/monit restart
     elif [ -e /usr/lib/systemd/system/monit.service ]; then
       systemctl enable monit.service
       systemctl restart monit.service
+    else
+      pkill monit; sleep 2 && /usr/bin/monit
     fi
 ##
 # service module fails on updated trusty
