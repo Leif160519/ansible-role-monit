@@ -6,7 +6,7 @@
     name="http://nexus.genscript.com/repository/it/ppa.genscript.com/monit/monit-5.26.0-1.el6.x86_64.rpm"
     state=present
   when:
-    - ansible_facts['distribution'] in [ "CentOS", 'Redhat' ]
+    - ansible_facts['distribution'] in [ "CentOS", 'RedHat' ]
     - ansible_facts['distribution_major_version'] == "6"
 
 #   name="https://repo.aerisnetwork.com/stable/centos/7/x86_64/monit-5.26.0-1.el7.x86_64.rpm"
@@ -16,6 +16,6 @@
     name="http://nexus.genscript.com/repository/it/ppa.genscript.com/monit/monit-5.26.0-1.el7.x86_64.rpm"
     state=present
   when:
-    - ansible_facts['distribution'] in [ "CentOS", 'Redhat' ]
+    - ansible_facts['distribution'] in [ "CentOS", 'RedHat' ]
     - ansible_facts['distribution_major_version'] == "7"
 
